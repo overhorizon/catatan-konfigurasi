@@ -1,0 +1,27 @@
+before_script:
+  - echo "Before script"
+  - cd /home/gitlab-runner/builds/<runnerID>/0/lightinnorthsky/Repo_Gitlab/ 
+
+building:
+  stage: build
+  script:
+    - composer install
+    - sleep 10
+    
+deploying:
+  stage: deploy
+  script:
+    - echo "Deploying to nginx root directory using rsync"
+    - sudo rsync -a --progress --human-readable --delete
+      --include ".env"
+      --exclude-from '.gitignore'
+      --exclude .gitignore
+      --exclude .git
+      .
+      /home/cmos/www/cmos
+    - sudo chown -R nginx:nginx /home/cmos/www/cmos
+    - sudo find /home/cmos/www/cmos -type f -exec chmod 664 {} \;
+    - sudo find /home/cmos/www/cmos -type d -exec chmod 775 {} \;
+    - sudo chmod -R ug+rwx storage bootstrap/cache
+    
+ 
