@@ -1,3 +1,7 @@
+#Referensi:
+#https://docs.gitlab.com/ee/ci/
+#https://linux.die.net/man/1/rsync
+#dan sumber-sumber lainnya.
 before_script:
   - echo "Before script"
   - cd /home/gitlab-runner/builds/<runnerID>/0/lightinnorthsky/Repo_Gitlab/ 
