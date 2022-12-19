@@ -25,6 +25,10 @@ server {
         rewrite ^(.*)$ $scheme://$host$uri_lowercase;
     }    
     
+    #location ~ [A-Z] {
+    #      perl 'sub { my $r = shift; $r->internal_redirect(lc($r->uri)); }';
+    #    }  #another type
+    
     # ...
     
 }
